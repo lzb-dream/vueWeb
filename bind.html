@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+//    var a = ''
+  //  if ((a='')) {
+    //    console.log('空')
+//}
+c = function () {
+    console.log(this)
+    this.username='罗志宝'
+    console.log(this.username)
+}
+a = new function Bind() {}
+a.username = '张三'
+a.change= function () {
+    console.log(this)
+    this.username = '李氏'
+    console.log(this.username)
+}
+b = {username: '小张'}
+
+a2 = a.change.bind(b)
+a2()
+c2 = c.bind(b)
+c2()
+</script>
+</html>

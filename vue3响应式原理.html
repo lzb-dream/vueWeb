@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+</head>
+<style>
+    button {
+        border-width: 3px;
+    }
+    span {
+        font-weight: 900;
+    }
+</style>
+<body>
+    <button>
+        <span>搜索</span>
+    </button>
+</body>
+<script>
+    var obj = {username:'小刘',age:23}
+    //集合去除重复的函数以免重复执行
+    const tong = new WeakMap()  //[object:Map['username':Set(),'age':set()], object2:Map[]]
+
+    //用一个变量来接收函数，然后通过get放进桶中，这样避免了不必要的函数执行。当我们改动数据源的时候通过set函数便执行桶中的相关函数
+    let on_Of = null
+    const proxy =  new Proxy(obj,{
+
+        get(target, p, receiver) {
+            console.log('获取属性值')
+            if (on_Of!==null){
+                if (!tong.has(target)){
+                    const map = new Map()
+                    tong.set(target,map)
+                }
+                if (!tong.get(target).get(p)){
+                    const collection = new Set()
+                    tong.get(target).set(p,collection)
+                }
+                tong.get(target).get(p).add(on_Of)
+            }
+            return target[p]
+        },
+
+        set(target, p, value, receiver) {
+            console.log('设置属性值')
+            target[p]=value
+            tong.get(target).get(p).forEach(fun=>{
+                fun()
+            })
+            return true
+        }
+    })
+    function addTong(fun) {
+        if (typeof fun !== 'function' && fun===null) return false
+        on_Of = fun
+        fun()
+        on_Of = null
+    }
+
+    function getNameAge(){
+        console.log('执行getNameAge')
+        proxy.username
+        proxy.age
+    }
+    function getAge() {
+        console.log('执行getAge')
+        proxy.age
+    }
+    console.log(tong)
+
+    addTong(getNameAge)
+    addTong(getAge)
+
+    setTimeout(function () {
+        proxy.username = 45
+        console.log(tong)
+    },2000)
+
+</script>
+</html>

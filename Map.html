@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var a = [2,7,9,1]
+    const m = new Map()
+    var tager = 9
+    for (let i = 0; i < a.length; i++) {
+        if (m.has(a[i])) console.log([m.get(a[i]),i])
+        else m.set(tager-a[i],i)
+        console.log(m)
+    }
+</script>
+</html>

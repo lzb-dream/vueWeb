@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function f() {
+
+    }
+function Num(n){
+    this._num = n;
+}
+Num.prototype = {
+    get num() {
+        console.log('get');
+        return this._num;
+    },
+    set num(n) {
+        console.log(n,"set")
+        this._num = n;
+    }
+}
+    console.log(Num.prototype)
+let nu = new Num(3);
+console.log(nu.num,"============")//get
+nu.num = 34 //34 set
+console.log(nu.num,"------------") //get
+
+</script>
+</html>

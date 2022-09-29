@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <audio src="https://music.163.com/song/media/outer/url?id=3323304.mp3" controls></audio>
+    <label for="input">双向绑定：</label>
+    <input type="text" id="input">
+    <h3 id="h3"></h3>
+</body>
+<script>
+    function getId(id) {
+        return document.getElementById(id)
+    }
+    const A = {
+        set m(n){
+            getId('input').value = n
+            getId('h3').innerText = n
+        }
+    }
+    getId('input').addEventListener('keyup',function (e) {
+        A.m = e.target.value
+    })
+
+
+    class Start{
+        //相当于init
+        constructor(username,x,y) {
+            this.username = username
+            this.x = x
+            this.y = y
+        }
+        changeUserName(newUserName){
+            this.username = newUserName
+        }
+        sum(){
+            console.log(this.y,this.x)
+        }
+    }
+    //类继承语法extends
+    class Son extends Start {
+        //constructor(username,x,y) {
+          //  super(username,x,y);
+        //}
+    }
+
+    let lzb = new Start('罗志宝')
+    console.log(lzb.username)
+    console.log(lzb)
+    lzb.changeUserName('不知道')
+    console.log(lzb.username)
+    let son = new Son(username='儿子',x=1,y=2)
+    console.log(son.username)
+    son.sum()
+
+
+
+
+
+
+
+
+</script>
+</html>

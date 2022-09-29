@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+</body>
+<script>
+    function *Make() {
+        console.log('我开始了')
+        yield 1
+        console.log('我是第二个')
+        yield 2
+        console.log('我是第3个')
+        yield 3
+    }
+    var a = Make()
+    console.log(a.next())
+    console.log(a.next())
+    console.log(a.next())
+    console.log(a.next())
+
+
+
+
+    var b = {o:'q'}
+    var middleware = b.o
+    Object.defineProperty(b,'o',{
+        get() {
+            return middleware
+        },
+        set(v) {
+            console.log(v)
+            middleware=v
+        }
+    })
+    console.log(b.o)
+    b.o = 12
+    console.log(b.o)
+</script>
+</html>

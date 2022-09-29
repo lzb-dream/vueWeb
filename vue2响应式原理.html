@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    h3 {
+        text-align: center;
+    }
+</style>
+<body>
+    <h3></h3>
+    <button>点击响应式更新</button>
+</body>
+<script>
+    var data = {username:'张山',son:['张雄安','张小'],obj:{age:23,sex:'man',love:['food',{pen:'pen'}]}}
+    var oldPrototype = Array.prototype
+    var newPrototype = Object.create(oldPrototype)
+    var button = document.querySelector('button')
+    var username = document.querySelector('h3')
+    var list = ['push','pop']
+    list.forEach(item=>{
+        newPrototype[item]=function () {
+            oldPrototype[item].call(this,...arguments)
+            username.innerText=data.son
+            console.log('更改')
+        }
+    })
+    function observe(object) {
+        if (typeof object !== 'object'|| object===null) return false
+        if (Array.isArray(object)) {object.__proto__=newPrototype}
+        for (const objectKey in object) {
+            reactive(object,objectKey,object[objectKey])
+            console.log(123)
+            observe(object[objectKey])
+        }
+    }
+
+    function reactive(object,key,value) {
+        Object.defineProperty(object,key,{
+                get(){
+                    return value
+                },
+                set(newValue){
+                    if (newValue!==value){
+                        value=newValue
+                        username.innerText=key+value
+                        console.log(data)
+                        console.log('更新')
+                    }
+                }
+            })
+    }
+
+    observe(data)
+
+    button.addEventListener('click',function () {
+        data.son.push('小张')
+    })
+    username.innerText=data.son
+</script>
+</html>
