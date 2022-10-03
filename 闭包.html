@@ -5,9 +5,79 @@
     <title>Title</title>
 </head>
 <body>
-
+    <div></div>
+    <button>旋转</button>
+    <button>恢复</button>
 </body>
+<style>
+    @keyframes ani {
+        from {
+            transform: rotateZ(-30deg);
+        }
+        to {
+            transform: rotateZ(0deg);
+        }
+    }
+    .a {
+        animation-name: ani;
+    }
+    @keyframes ani2 {
+        from {
+            transform: rotateZ(0deg);
+        }
+        to {
+            transform: rotateZ(-30deg);
+        }
+    }
+    .b {
+        animation-name: ani2;
+    }
+    div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -50px;
+        width: 100px;
+        height: 200px;
+        background-color: yellow;
+        transform-origin: 0 0;
+        transform: rotateZ(-30deg);
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+    }
+
+
+</style>
 <script>
+   var buttonList = document.querySelectorAll('button')
+   var div = document.querySelector('div')
+   for (let i = 0; i < buttonList.length; i++) {
+       buttonList[i].addEventListener("click", function () {
+           div.className=''
+           if (i===0)
+           {
+               div.classList.add('a')
+           } else {
+               div.classList.add('b')
+           }
+       })
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function A(){
         let funs=0
         this.g = function () {
