@@ -1,8 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from rest_framework.views import Response,APIView
-from getData.FountMusicData import FountMusicData
-from getData.SongsIntroduce import getSongsIntroduce,getSongList
+from getData.CrawlData import getSongsIntroduce,getSongList,fountMusicData,getLyrics
 class wySwiper(APIView):
     def get(self,request,*args,**kwargs):
         data = ['https://img.51miz.com/Element/00/96/40/24/52d04760_E964024_f92f3a97.jpg',
@@ -13,6 +10,7 @@ class wySwiper(APIView):
 
 class FountMusic(APIView):
     def get(self,request,*args,**kwargs):
+        FountMusicData = fountMusicData()
         return Response({'FountMusicData': FountMusicData})
 
 class SongsIntroduceData(APIView):
@@ -24,3 +22,8 @@ class SongsListData(APIView):
     def get(self,request,id):
         songsListData = getSongList(id)
         return Response({'songsListData': songsListData})
+
+class GetLyrics(APIView):
+    def get(self, request, id):
+        getLyricsData = getLyrics(id)
+        return Response({'getLyricsData': getLyricsData})

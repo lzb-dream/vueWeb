@@ -4,5 +4,6 @@ urlpatterns = [
     path('swiper',wySwiper.as_view()),
     path('fountMusic',FountMusic.as_view()),
     path('songsIntroduceData/<str:id>',SongsIntroduceData.as_view()),
+    path('songsListData/<str:id>', SongsListData.as_view()),
     path('songsListData/<str:id>', SongsListData.as_view())
 ]
